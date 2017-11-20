@@ -46,9 +46,17 @@ class ReadmeTemplater(object):
     def __init__(self):
         conanfile_path = os.path.join(os.getcwd(), "conanfile.py")
         self.conanfile = load_conanfile_class(conanfile_path)
-       
-        self.user = 'bincrafters'
-        self.channel = 'stable'
+
+        self.options = self.conanfile.options
+        self.default_options = {}
+
+        default_options = self.conanfile.default_options
+        for dopt in default_options:
+            key, value = dopt.split("=")
+            self.default_options[key] = value
+
+        self.user = None
+        self.channel = None
 
         self.custom_content = 'This is additional text to insert into the README.'
 
@@ -72,9 +80,12 @@ class ReadmeTemplater(object):
                           'version': self.getConanfileVar('version'), 
                           'user': self.getConanfileVar('user', self.user),
                           'channel': self.getConanfileVar('channel', self.channel),
+                          'license': self.getConanfileVar('license'),
                           'homepage': self.getConanfileVar('homepage'),
                           'description': self.getConanfileVar('description'),
-                          'content': self.custom_content}
+                          'custom_content': self.custom_content,
+                          'options': self.options,
+                          'default_options': self.default_options}
                           
         with open(readme_tmpl) as f:
             template_data = f.read()
@@ -87,4 +98,6 @@ class ReadmeTemplater(object):
             
 if __name__ == "__main__":
     t = ReadmeTemplater()
+    t.user = 'bincrafters'
+    t.channel = 'stable'
     t.run()

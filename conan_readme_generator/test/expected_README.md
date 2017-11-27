@@ -43,8 +43,8 @@ The following command both runs all the steps of the conan file, and publishes t
 ### Available Options
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
-| foobar      | True |  [True, False] |
 | shared      | False |  [True, False] |
+| foobar      | False |  [True, False] |
 
 ## Add Remote
 

@@ -1,0 +1,22 @@
+cache: pip
+language: python
+python:
+    - 2.7
+    - 3.6
+os: linux
+sudo: required
+dist: trusty
+
+matrix:
+    include:
+        - language: generic
+          os: osx
+          env: PYVER=py27
+
+install:
+  - pip install -r conan_readme_generator/requirements.txt
+  - pip install -r conan_readme_generator/requirements_test.txt
+before_script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
+script:
+  - nosetests .

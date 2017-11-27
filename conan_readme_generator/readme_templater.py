@@ -51,7 +51,6 @@ class ReadmeTemplater(object):
         self.default_options = {}
 
         default_options = self.conanfile.default_options
-        print("DEFAULT OPTIONS: %s" % str(default_options))
         for dopt in default_options:
             key, value = dopt.split("=")
             self.default_options[key] = value

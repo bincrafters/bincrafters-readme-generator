@@ -51,6 +51,7 @@ class ReadmeTemplater(object):
         self.default_options = {}
 
         default_options = self.conanfile.default_options
+        print("DEFAULT OPTIONS: %s" % str(default_options))
         for dopt in default_options:
             key, value = dopt.split("=")
             self.default_options[key] = value
@@ -74,10 +75,10 @@ class ReadmeTemplater(object):
         else:
             return default_value
 
-    def run(self, readme_tmpl='README.md.tmpl', readme_out='README.md', ):
-    
-        self.nameSpace = {'name': self.getConanfileVar('name'), 
-                          'version': self.getConanfileVar('version'), 
+    def run(self, readme_tmpl='README.md.tmpl', readme_out='README.md'):
+
+        self.nameSpace = {'name': self.getConanfileVar('name'),
+                          'version': self.getConanfileVar('version'),
                           'user': self.getConanfileVar('user', self.user),
                           'channel': self.getConanfileVar('channel', self.channel),
                           'license': self.getConanfileVar('license'),
@@ -86,7 +87,7 @@ class ReadmeTemplater(object):
                           'custom_content': self.custom_content,
                           'options': self.options,
                           'default_options': self.default_options}
-                          
+
         with open(readme_tmpl) as f:
             template_data = f.read()
 
@@ -94,10 +95,3 @@ class ReadmeTemplater(object):
 
         with open(readme_out, "w") as readme:
             readme.write(str(readme_parsed))
-            
-            
-if __name__ == "__main__":
-    t = ReadmeTemplater()
-    t.user = 'bincrafters'
-    t.channel = 'stable'
-    t.run()

@@ -5,16 +5,7 @@ import os
 import re
 from setuptools import setup
 from setuptools import find_packages
-#from setuptools.command.install import install
 from codecs import open
-#from os.path import expanduser
-#from os.path import join
-#from os import environ
-#from os import getuid
-#from os import getgid
-#from os import chown
-#from os.path import isdir
-#from os import mkdir
 """A simple script to generate a README.md for conan recipes.
 
 """

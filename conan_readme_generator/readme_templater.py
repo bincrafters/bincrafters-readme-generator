@@ -78,7 +78,7 @@ class ReadmeTemplater(object):
                 if isinstance(attr, property):
                     return getattr(attr, variable, default_value)
                 elif isinstance(attr, tuple) or isinstance(attr, str):
-                    return attr
+                    return [attr]
                 elif isinstance(attr, collections.Sequence):
                     print("var: " + variable)
                     return attr.split()

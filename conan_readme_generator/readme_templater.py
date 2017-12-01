@@ -37,9 +37,7 @@ A README.md will be generated in the `conan-libname` directory.
 
 from Cheetah.Template import Template
 from conans.client.loader_parse import load_conanfile_class
-from conans.model import Generator
 import collections
-import pprint
 import os
 
 # This class generates README.md from a template file README.md.tmpl,
@@ -49,7 +47,6 @@ class ReadmeTemplater(object):
         conanfile_path = os.path.join(os.getcwd(), conanfile)
         try:
             self.conanfile = load_conanfile_class(conanfile_path)
-            #pprint.pprint(self.conanfile.__dict__)
         except Exception as ex:
             print("Could not load: %s" % conanfile_path)
             raise
@@ -79,15 +76,9 @@ class ReadmeTemplater(object):
                 print("Failed! Debug?")
             else:
                 if isinstance(attr, property):
-                    #print("is property: %s" % variable)
                     return getattr(attr, variable, default_value)
                 elif isinstance(attr, collections.Sequence):
-                    #print("sequence: %s" % variable)
                     return attr
-                #elif not isinstance(attr, property):
-                #    #print("not property: %s" % variable)
-                #    return '{0}'.format(str(attr))
-
         else:
             return default_value
 

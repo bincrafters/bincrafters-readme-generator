@@ -13,9 +13,20 @@ class ArgumentsParser(object):
     def __init__(self):
         path = os.path.abspath(__file__)
         pathdir = os.path.dirname(path)
-        parser = argparse.ArgumentParser(description="A simple script to generate a README.md for conan recipes")
-        parser.add_argument("reference", nargs='?', type=self._reference_type, default="bincrafters/stable", help='Reference to user and chanell, e.g: "bincrafters/stable"')
-        parser.add_argument("template",  nargs='?', type=self._path_type, default=os.path.join(pathdir, 'templates', 'README.md.tmpl'), help="Template file path")
+        parser = argparse.ArgumentParser(description="A simple script to generate a README.md for conan recipes.")
+        
+        parser.add_argument("reference", 
+                            nargs='?', 
+                            type=self._reference_type, 
+                            default="bincrafters/stable", 
+                            help='Reference to user and channel (default: "bincrafters/stable")')
+                            
+        parser.add_argument("template",  
+                            nargs='?', 
+                            type=self._path_type, 
+                            default=os.path.join(pathdir, 'templates', 'README.md.tmpl'), 
+                            help="Template file path (default: README.md.tmpl)")
+                            
         arguments = parser.parse_args()
         self._username, self._channel = re.match(ArgumentsParser._REFERENCE_PATTERN, arguments.reference).groups()
         self._template = arguments.template

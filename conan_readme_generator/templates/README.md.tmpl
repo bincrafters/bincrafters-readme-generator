@@ -2,7 +2,11 @@
 [![Build Status](https://travis-ci.org/${user}/conan-${name}.svg?branch=${channel}%2F${version})](https://travis-ci.org/${user}/conan-${name})
 [![Build status](https://ci.appveyor.com/api/projects/status/sxs9n6vb8nqa92l5?svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
 
-[Conan.io](https://conan.io) package recipe for [${name}]($getVar('homepage', '')).
+#if $homepage
+[Conan.io](https://conan.io) package recipe for [*${name}*]($getVar('homepage', '')).
+#else
+[Conan.io](https://conan.io) package recipe for *${name}*.
+#end if
 
 $getVar('description', '')
 
@@ -22,7 +26,9 @@ If you handle multiple dependencies in your project is better to add a *conanfil
     ${name}/${version}@${user}/${channel}
 
     [generators]
-    txt
+#for $gen in $generators
+    ${gen}
+#end for
 
 Complete the installation of requirements for your project running:
 
@@ -40,12 +46,14 @@ The following command both runs all the steps of the conan file, and publishes t
 
     $ conan create ${user}/${channel}
 
+#if $options
 \#\#\# Available Options
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
 #for $key, $value in $options.items()
 | ${key}      | $default_options[$key] |  $value |
 #end for
+#end if
 
 \#\# Add Remote
 

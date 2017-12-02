@@ -1,6 +1,6 @@
 [ ![Download](https://api.bintray.com/packages/${user}/public-conan/${name}%3A${user}/images/download.svg) ](https://bintray.com/${user}/public-conan/${name}%3A${user}/_latestVersion)
 [![Build Status](https://travis-ci.org/${user}/conan-${name}.svg?branch=${channel}%2F${version})](https://travis-ci.org/${user}/conan-${name})
-[![Build status](https://ci.appveyor.com/api/projects/status/sxs9n6vb8nqa92l5?svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
+[![Build status](https://ci.appveyor.com/api/projects/status/github/${user}/conan-${name}?branch=${channel}%2F${version}&svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
 
 #if $homepage
 [Conan.io](https://conan.io) package recipe for [*${name}*]($getVar('homepage', '')).
@@ -25,10 +25,12 @@ If you handle multiple dependencies in your project is better to add a *conanfil
     [requires]
     ${name}/${version}@${user}/${channel}
 
+#if $generators
     [generators]
 #for $gen in $generators
     ${gen}
 #end for
+#end if
 
 Complete the installation of requirements for your project running:
 

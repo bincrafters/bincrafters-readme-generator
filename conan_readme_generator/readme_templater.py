@@ -75,12 +75,19 @@ class ReadmeTemplater(object):
             except Exception as the_exception:
                 print("Failed! Debug?")
             else:
+                #print("%s => %s" % (variable, type(attr)) )
+                # tackles multiple or single generators definition in conanfile
+                if variable == "generators" and isinstance(attr, str):
+                    return [attr]
+
                 if isinstance(attr, property):
                     return getattr(attr, variable, default_value)
-                elif isinstance(attr, tuple) or isinstance(attr, str):
-                    return [attr]
+                elif isinstance(attr, tuple):
+                    return attr
+                elif isinstance(attr, str):
+                    return attr
                 elif isinstance(attr, collections.Sequence):
-                    print("var: " + variable)
+                    #print("var: " + variable)
                     return attr.split()
         else:
             return default_value

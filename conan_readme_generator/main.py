@@ -15,7 +15,7 @@ def run():
     try:
         readme_templater = ReadmeTemplater(debug=arguments.debug)
     except:
-	print("An error has occured")
+        print("An error has occured")
         sys.exit(1)
 
     readme_templater.user = arguments.username

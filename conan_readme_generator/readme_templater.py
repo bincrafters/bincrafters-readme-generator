@@ -1,72 +1,69 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
-
-#### Requirements
-
-Before using this Python script, you need to:
-
-1. Install the Cheetah 3 Python Template engine:
-
-        pip install cheetah3
-
-2. A working conan installation:
-
-        pip install conan
-
-
-#### Usage
-
-1. Copy the README.md.tmpl you would like to use into your recipe's directory, e.g. from
-
-        bincrafters-template/README.md.tmpl
-
-2. Change directory into the recipe's location (i.e. where conanfile.py is)
-
-        cd conan-libname
-
-3. Execute this script:
-
-        python path\to\conan_readme_templater.py
-
-
-A README.md will be generated in the `conan-libname` directory.
-
-'''
-
 from Cheetah.Template import Template
 from conans.client.loader_parse import load_conanfile_class
+from conans.model.conan_file import *
 import collections
 import os
+import logging
 
 # This class generates README.md from a template file README.md.tmpl,
 class ReadmeTemplater(object):
 
-    def __init__(self, conanfile="conanfile.py"):
+    def __init__(self, conanfile="conanfile.py", debug=False):
+        if debug:
+            logging.basicConfig(level=logging.DEBUG)
+
         conanfile_path = os.path.join(os.getcwd(), conanfile)
         try:
             self.conanfile = load_conanfile_class(conanfile_path)
-        except Exception as ex:
-            print("Could not load: %s" % conanfile_path)
+        except Exception as e:
+            if debug:
+                logging.debug(e)
+            else:
+                print("Could not load: %s" % conanfile_path)
             raise
         else:
             self.options = {}
             self.default_options = {}
             try:
-                self.options = self.conanfile.options
-            except Exception:
+                print("Extracting options.")
+                self.options = self.parse_options(self.conanfile.options)
+            except Exception as e:
+                if debug:
+                    logging.debug(e)
+                else:
+                    print("No options found in conanfile. Skipping.")
                 pass
             else:
-                default_options = self.conanfile.default_options
-                for dopt in default_options:
-                    key, value = dopt.split("=")
-                    self.default_options[key] = value
+                try:
+                    print("Extracting default_options.")
+                    default_options = self.parse_options(self.conanfile.default_options)
+                except Exception as e:
+                    if debug:
+                        logging.debug(e)
+                    else:
+                        print("No default options found in conanfile. Skipping.")
+                    pass
+                else:
+                    for key,value in default_options.as_list():
+                        self.default_options[key] = value
             finally:
                 self.user = None
                 self.channel = None
 
                 self.custom_content = 'This is additional text to insert into the README.'
+
+    def parse_options(self, opts):
+        if isinstance(opts, (list, tuple)):
+            return OptionsValues(opts)
+        elif isinstance(opts, dict):
+            return opts
+        elif isinstance(opts, str):
+            return OptionsValues.loads(opts)
+        else:
+            raise Exception("Error parsing options")
 
     def getConanfileVar(self, variable, default_value=''):
         if hasattr(self.conanfile, variable):
@@ -127,4 +124,3 @@ class ReadmeTemplater(object):
             with open(readme_out, "w") as readme:
                 readme.write(str(readme_parsed))
 
-                

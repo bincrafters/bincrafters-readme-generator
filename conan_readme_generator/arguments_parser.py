@@ -26,10 +26,13 @@ class ArgumentsParser(object):
                             type=self._path_type, 
                             default=os.path.join(pathdir, 'templates', 'README.md.tmpl'), 
                             help="Template file path (default: README.md.tmpl)")
+
+        parser.add_argument('-d', '--debug', action='store_true', help='Switch on debug mode.')
                             
         arguments = parser.parse_args()
         self._username, self._channel = re.match(ArgumentsParser._REFERENCE_PATTERN, arguments.reference).groups()
         self._template = arguments.template
+        self._debug = arguments.debug
 
     def _reference_type(self, string):
         if not re.match(ArgumentsParser._REFERENCE_PATTERN, string):
@@ -52,3 +55,7 @@ class ArgumentsParser(object):
     @property
     def template(self):
         return self._template
+
+    @property
+    def debug(self):
+        return self._debug

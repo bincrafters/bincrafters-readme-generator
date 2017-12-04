@@ -53,12 +53,17 @@ The following command both runs all the steps of the conan file, and publishes t
 
     $ conan create ${user}/${channel}
 
+
 #if $options
 \#\#\# Available Options
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
 #for $key, $value in $options.items()
-| ${key}      | $default_options[$key] |  $value |
+#if $key not in $default_options
+| ${key}      |                        |  ${value} |
+#else
+| ${key}      | $default_options[$key] |  ${value} |
+#end if
 #end for
 #end if
 

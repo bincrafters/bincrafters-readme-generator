@@ -99,6 +99,7 @@ class ReadmeTemplater(object):
                           'channel': self.getConanfileVar('channel', self.channel),
                           'generators': self.getConanfileVar('generators'),
                           'license': self.getConanfileVar('license'),
+                          'recipe_license': self.getConanfileVar('recipe_license', "MIT"),
                           'homepage': self.getConanfileVar('homepage'),
                           'description': self.getConanfileVar('description'),
                           'custom_content': self.custom_content,

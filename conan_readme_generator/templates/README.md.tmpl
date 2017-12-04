@@ -1,7 +1,11 @@
-#import datetime
-[ ![Download](https://api.bintray.com/packages/${user}/public-conan/${name}%3A${user}/images/download.svg) ](https://bintray.com/${user}/public-conan/${name}%3A${user}/_latestVersion)
+#import datetime, os
+[![Download](https://api.bintray.com/packages/${user}/public-conan/${name}%3A${user}/images/download.svg) ](https://bintray.com/${user}/public-conan/${name}%3A${user}/_latestVersion)
+#if os.path.exists(".travis.yml")
 [![Build Status](https://travis-ci.org/${user}/conan-${name}.svg?branch=${channel}%2F${version})](https://travis-ci.org/${user}/conan-${name})
+#end if
+#if os.path.exists("appveyor.yml")
 [![Build status](https://ci.appveyor.com/api/projects/status/github/${user}/conan-${name}?branch=${channel}%2F${version}&svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
+#end if
 
 #if $homepage
 [Conan.io](https://conan.io) package recipe for [*${name}*]($getVar('homepage', '')).

@@ -65,7 +65,7 @@ setup(
     description='A simple script to generate a README.md for conan recipes.',
 
     # The project's main homepage.
-    url='https://github.com/sigmoidal/conan-readme-generator',
+    url='https://github.com/bincrafters/conan-readme-generator',
 
     # Author details
     author='Bincrafters',

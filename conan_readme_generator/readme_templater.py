@@ -47,6 +47,7 @@ class BincraftersTemplater(object):
         else:
             self.options = {}
             self.default_options = {}
+
             try:
                 print("Extracting options.")
                 self.options = self.parse_options(self.conanfile.options)
@@ -94,8 +95,11 @@ class BincraftersTemplater(object):
             else:
                 #print("%s => %s" % (variable, type(attr)) )
                 # tackles multiple or single generators definition in conanfile
-                if variable == "generators" and isinstance(attr, str):
-                    return [attr]
+                if variable == "generators":
+                    if isinstance(attr, (list, tuple)):
+                        return attr
+                    elif isinstance(attr, str):
+                        return [attr]
 
                 if isinstance(attr, property):
                     return getattr(attr, variable, default_value)
@@ -123,16 +127,18 @@ class BincraftersTemplater(object):
                              'url': '%s/blob/%s/%s' % (self.git_remote_origin_url,self.git_active_branch,license_file) }
                 else:
                     print("Recipe License file {license_file} is not recognized.".format(license_file=license_file))
-                    return {'license': 'LICENSE',
-                            'url': '%s/blob/%s/%s' % (self.git_remote_origin_url,self.git_active_branch,license_file) }
+                    #return {'license': 'LICENSE',
+                    #        'url': '%s/blob/%s/%s' % (self.git_remote_origin_url,self.git_active_branch,license_file) }
         else:
             print("Recipe License file {license_file} missing. Adding a default MIT license.".format(license_file=license_file))
             return {'license': 'MIT',
                     'url': '%s/blob/%s/%s' % (self.git_remote_origin_url, self.git_active_branch, license_file)}
-        return []
+        return {}
 
     def prepare(self):
         self.recipe_license = self.getRecipeLicenseFromFile()
+        if not self.recipe_license:
+            self.recipe_license = self.getRecipeLicenseFromFile('LICENSE')
 
         self.nameSpace = {'name': self.getConanfileVar('name'),
                           'version': self.getConanfileVar('version'),

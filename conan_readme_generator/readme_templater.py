@@ -5,44 +5,41 @@ from conans.client.loader_parse import load_conanfile_class
 from conans.model.conan_file import *
 from Cheetah.Template import Template
 from git import Repo
+from git.exc import InvalidGitRepositoryError, NoSuchPathError
 import collections
 import logging
 import os
-import re
 
 
 # This class generates README.md from a template file README.md.tmpl,
 class BincraftersTemplater(object):
 
     def __init__(self, conanfile="conanfile.py", debug=False):
-        if debug:
-            logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(level=logging.DEBUG if debug else logging.ERROR)
 
         conanfile_path = os.path.join(os.getcwd(), conanfile)
-
+        logging.debug("conanfile_path=%s", conanfile_path)
 
         try:
             self.gitrepo = Repo('.')
-        except Exception as e:
-            if debug:
-                logging.debug(e)
-
+        except (InvalidGitRepositoryError, NoSuchPathError):
             print("GitPython error."
                   "\nEnsure your are executing this script in a git-controlled directory."
                   "\nMake sure the 'git' binary is available in your path.")
-
             raise
 
         self.git_active_branch = self.gitrepo.active_branch
-        self.git_remote_origin_url = self.gitrepo.remotes.origin.url
+        try:
+            self.git_remote_origin_url = self.gitrepo.remotes.origin.url
+        except AttributeError:
+            print("Git repo needs a remote origin repository")
+            raise
 
         try:
             self.conanfile = load_conanfile_class(conanfile_path)
-        except Exception as e:
-            if debug:
-                logging.debug(e)
-            else:
-                print("Could not load: %s" % conanfile_path)
+        except ConanException as e:
+            logging.debug(e)
+            print("Could not load: %s" % conanfile_path)
             raise
         else:
             self.options = {}
@@ -52,21 +49,16 @@ class BincraftersTemplater(object):
                 print("Extracting options.")
                 self.options = self.parse_options(self.conanfile.options)
             except Exception as e:
-                if debug:
-                    logging.debug(e)
-                else:
-                    print("No options found in conanfile. Skipping.")
+                logging.debug(e)
+                print("No options found in conanfile. Skipping.")
                 pass
             else:
                 try:
                     print("Extracting default_options.")
                     default_options = self.parse_options(self.conanfile.default_options)
                 except Exception as e:
-                    if debug:
-                        logging.debug(e)
-                    else:
-                        print("No default options found in conanfile. Skipping.")
-                    pass
+                    logging.debug(e)
+                    print("No default options found in conanfile. Skipping.")
                 else:
                     for key,value in default_options.as_list():
                         self.default_options[key] = value
@@ -90,8 +82,8 @@ class BincraftersTemplater(object):
         if hasattr(self.conanfile, variable):
             try:
                 attr = getattr(self.conanfile, variable, default_value)
-            except Exception as the_exception:
-                print("Failed! Debug?")
+            except Exception as e:
+                logging.debug(e)
             else:
                 #print("%s => %s" % (variable, type(attr)) )
                 # tackles multiple or single generators definition in conanfile

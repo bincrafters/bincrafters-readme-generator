@@ -1,19 +1,44 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import unittest
 import tempfile
 import filecmp
+import subprocess
+import shutil
 from conans import tools
-from conan_readme_generator.readme_templater import ReadmeTemplater
+from conan_readme_generator.readme_templater import BincraftersTemplater
 
 
 class GeneratorTest(unittest.TestCase):
-
-    def test_generator(self):
+    def test_readme_generator(self):
         temp_dir = tempfile.mkdtemp()
-        with tools.chdir(os.path.join("conan_readme_generator", "test")):
-            readme_templater = ReadmeTemplater()
+        current_dir = os.getcwd()
+        shutil.copyfile(
+            os.path.join('conan_readme_generator', 'test', 'conanfile.py'),
+            os.path.join(temp_dir, 'conanfile.py'))
+        shutil.copyfile('LICENSE', os.path.join(temp_dir, 'LICENSE.md'))
+        with tools.chdir(temp_dir):
+            subprocess.call(['git', 'init'])
+            subprocess.call([
+                'git', 'remote', 'add', 'origin',
+                'https://github.com/bincrafters/conan-readme-generator'
+            ])
+            open('.travis.yml', 'w')
+            open('appveyor.yml', 'w')
+            readme_templater = BincraftersTemplater()
             readme_templater.user = "foobar"
             readme_templater.channel = "testing"
-            readme_templater.run(readme_tmpl=os.path.join("..", "templates", "README.md.tmpl"), readme_out=os.path.join(temp_dir, "README.md"))
-            print("PATH: %s" % os.path.join(temp_dir, "README.md"))
-            self.assertTrue(filecmp.cmp("expected_README.md", os.path.join(temp_dir, "README.md")))
+            readme_templater.version = "1.0.0"
+            readme_templater.name = "Hello"
+            readme_templater.prepare()
+            readme_templater.run(
+                template=os.path.join(current_dir, "conan_readme_generator",
+                                      "templates", "readme",
+                                      "README-library.md.tmpl"),
+                output=os.path.join("README.md"))
+            self.assertTrue(
+                filecmp.cmp(
+                    os.path.join(current_dir, "conan_readme_generator", "test",
+                                 "expected_README.md"),
+                    os.path.join(temp_dir, "README.md")))

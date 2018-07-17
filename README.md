@@ -2,6 +2,8 @@
 
 A simple script to generate a README.md for conan recipes.
 
+![logo](logo.png)
+
 #### Install
 
 Before using this Python script, you need to:
@@ -9,9 +11,9 @@ Before using this Python script, you need to:
 1. Install the script and all its dependencies. There are two ways:
 
        a) pip install git+https://github.com/bincrafters/conan-readme-generator --upgrade
-       
+
         or
-       
+
        b) git clone https://github.com/bincrafters/conan-readme-generator
           cd conan-readme-generator
           pip install . --upgrade

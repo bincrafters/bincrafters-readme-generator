@@ -1,8 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/foobar/public-conan/Hello%3Afoobar/images/download.svg) ](https://bintray.com/foobar/public-conan/Hello%3Afoobar/_latestVersion)
+[![Download](https://api.bintray.com/packages/foobar/public-conan/Hello%3Afoobar/images/download.svg) ](https://bintray.com/foobar/public-conan/Hello%3Afoobar/_latestVersion)
 [![Build Status](https://travis-ci.org/foobar/conan-Hello.svg?branch=testing%2F0.1.0)](https://travis-ci.org/foobar/conan-Hello)
-[![Build status](https://ci.appveyor.com/api/projects/status/sxs9n6vb8nqa92l5?svg=true)](https://ci.appveyor.com/project/foobar/conan-Hello)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/foobar/conan-Hello?branch=testing%2F0.1.0&svg=true)](https://ci.appveyor.com/project/foobar/conan-Hello)
 
-[Conan.io](https://conan.io) package recipe for [Hello]().
+[Conan.io](https://conan.io) package recipe for [*Hello*](https://github.com/bincrafters/conan-readme-generator).
 
 <Description of Hello here>
 
@@ -38,7 +38,7 @@ The example below shows the commands used to publish to foobar conan repository.
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
 
-    $ conan create foobar/testing
+    $ conan create . foobar/testing
 
 ### Available Options
 | Option        | Default | Possible Values  |
@@ -54,5 +54,9 @@ The following command both runs all the steps of the conan file, and publishes t
 
     $ conan upload Hello/0.1.0@foobar/testing --all -r foobar
 
-## License
-[None](LICENSE)
+## Conan Recipe License
+
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package Hello.
+It does *not* in any way apply or is related to the actual software being packaged.
+
+[MIT](https://github.com/bincrafters/conan-readme-generator/blob/master/LICENSE.md)

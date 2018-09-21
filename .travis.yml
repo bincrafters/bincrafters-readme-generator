@@ -16,6 +16,7 @@ matrix:
 install:
   - pip install -r conan_readme_generator/requirements.txt
   - pip install -r conan_readme_generator/requirements_test.txt
+  - find / -iname nosetests
 before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
 script:

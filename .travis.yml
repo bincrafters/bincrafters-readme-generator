@@ -18,5 +18,6 @@ install:
   - pip install -r conan_readme_generator/requirements_test.txt
 before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
+  - export PATH=$PATH:/usr/local/Cellar/numpy/1.14.5/libexec/nose/bin
 script:
   - nosetests .

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans.client.loader_parse import load_conanfile_class
 from conans.model.conan_file import *
 from Cheetah.Template import Template
 from git import Repo
@@ -37,7 +36,13 @@ class BincraftersTemplater(object):
         self.git_remote_origin_url = self.gitrepo.remotes.origin.url
 
         try:
-            self.conanfile = load_conanfile_class(conanfile_path)
+            try:
+                from conans.client.loader_parse import load_conanfile_class
+                self.conanfile = self.loader.load_conanfile(conanfile_path)
+            except ImportError:
+                from conans.client.conan_api import ConanAPIV1
+                conan_api, _, _ = ConanAPIV1.factory()
+                self.conanfile = conan_api._loader.load_class(conanfile_path)
         except Exception as e:
             if debug:
                 logging.debug(e)

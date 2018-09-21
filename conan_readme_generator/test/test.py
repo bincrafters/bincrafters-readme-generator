@@ -4,6 +4,8 @@ import tempfile
 import filecmp
 from conans import tools
 from conan_readme_generator.readme_templater import BincraftersTemplater
+import subprocess
+import shutil
 
 
 class GeneratorTest(unittest.TestCase):
@@ -11,6 +13,14 @@ class GeneratorTest(unittest.TestCase):
     def test_generator(self):
         temp_dir = tempfile.mkdtemp()
         with tools.chdir(os.path.join("conan_readme_generator", "test")):
+
+            if os.path.isdir('.git'):
+                shutil.rmtree('.git')
+            subprocess.check_call(['git', 'init'])
+            subprocess.check_call(['git', 'commit', '-m', 'test', '--allow-empty'])
+            subprocess.check_call(['git', 'remote', 'add', 'origin',
+                                   'git@github.com:bincrafters/conan-readme-generator.git'])
+
             readme_templater = BincraftersTemplater()
             readme_templater.user = "foobar"
             readme_templater.channel = "testing"

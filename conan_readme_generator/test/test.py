@@ -14,6 +14,8 @@ class GeneratorTest(unittest.TestCase):
             readme_templater = BincraftersTemplater()
             readme_templater.user = "foobar"
             readme_templater.channel = "testing"
-            readme_templater.run(readme_tmpl=os.path.join("..", "templates", "README.md.tmpl"), readme_out=os.path.join(temp_dir, "README.md"))
+            readme_templater.prepare()
+            readme_templater.run(template=os.path.join("..", "templates", "readme", "README-library.md.tmpl"),
+                                 output=os.path.join(temp_dir, "README.md"))
             print("PATH: %s" % os.path.join(temp_dir, "README.md"))
             self.assertTrue(filecmp.cmp("expected_README.md", os.path.join(temp_dir, "README.md")))

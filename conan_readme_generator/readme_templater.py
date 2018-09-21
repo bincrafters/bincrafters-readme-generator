@@ -21,7 +21,15 @@ class BincraftersTemplater(object):
 
 
         try:
-            self.gitrepo = Repo('.')
+            path = os.getcwd()
+            while True:
+                if os.path.isdir(os.path.join(path, '.git')):
+                    break
+                parent = os.path.dirname(path)
+                if os.path.normpath(path) == os.path.normpath(parent):
+                    break
+                path = parent
+            self.gitrepo = Repo(path)
         except Exception as e:
             if debug:
                 logging.debug(e)

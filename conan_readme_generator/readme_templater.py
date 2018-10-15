@@ -65,8 +65,11 @@ class BincraftersTemplater(object):
                     logging.debug(e)
                     print("No default options found in conanfile. Skipping.")
                 else:
-                    for key,value in default_options.as_list():
-                        self.default_options[key] = value
+                    if isinstance(default_options, dict):
+                        self.default_options = default_options
+                    else:
+                        for key, value in default_options.as_list():
+                            self.default_options[key] = value
             finally:
                 self.user = None
                 self.channel = None

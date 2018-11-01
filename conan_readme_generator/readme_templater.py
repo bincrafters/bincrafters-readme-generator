@@ -8,6 +8,7 @@ from git.exc import InvalidGitRepositoryError, NoSuchPathError
 import collections
 import logging
 import os
+import re
 
 
 # This class generates README.md from a template file README.md.tmpl,
@@ -118,21 +119,28 @@ class BincraftersTemplater(object):
     # https://developer.github.com/v3/licenses/
     def getRecipeLicenseFromFile(self, license_file='LICENSE.md'):
         licenses_provider_URL = 'http://choosealicense.com/licenses'
+        git_remote_http = url = re.sub('\.git$', '', self.git_remote_origin_url)
+        license_url = '{}/blob/{}/{}/{}'.format(git_remote_http, self.getConanfileVar('channel', self.channel), self.getConanfileVar('version'), license_file)
+
         if os.path.exists(license_file):
             with open(license_file) as lic:
                 lic_data = lic.read().strip()
-                if "MIT License" in lic_data:
+                if 'Permission is hereby granted, free of charge, to any person obtaining a copy' in lic_data and 'of this software and associated documentation files (the "Software"), to deal' in lic_data:
+                    print("Recipe License is existing and recognized.")
                     return { 'license': 'MIT',
                              'remote_url': '%s/%s' % (licenses_provider_URL,'mit'),
-                             'url': '%s/blob/%s/%s' % (self.git_remote_origin_url,self.git_active_branch,license_file) }
+                             'url': license_url,
+                             'existing': True }
                 else:
                     print("Recipe License file {license_file} is not recognized.".format(license_file=license_file))
-                    #return {'license': 'LICENSE',
-                    #        'url': '%s/blob/%s/%s' % (self.git_remote_origin_url,self.git_active_branch,license_file) }
+                    return {'license': 'LICENSE',
+                           'url': license_url,
+                           'existing': True }
         else:
             print("Recipe License file {license_file} missing. Adding a default MIT license.".format(license_file=license_file))
             return {'license': 'MIT',
-                    'url': '%s/blob/%s/%s' % (self.git_remote_origin_url, self.git_active_branch, license_file)}
+                    'url': license_url,
+                    'existing': False }
         return {}
 
     def prepare(self):
@@ -160,7 +168,7 @@ class BincraftersTemplater(object):
 
     def run(self, template='README.md.tmpl', output='README.md'):
         print("Generating %s using template %s" % (output,template))
-        
+
         try:
             with open(template) as f:
                 template_data = f.read()
@@ -171,4 +179,3 @@ class BincraftersTemplater(object):
 
             with open(output, "w") as readme:
                 readme.write(str(readme_parsed))
-

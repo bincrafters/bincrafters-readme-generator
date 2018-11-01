@@ -11,16 +11,24 @@
 #end if
 
 #if $homepage
-[Conan](https://conan.io) package recipe for [*${name}*]($getVar('homepage', '')).
+\#\# Conan package recipe for [*${name}*]($getVar('homepage', ''))
 #else
-[Conan](https://conan.io) package recipe for *${name}*.
+\#\# Conan package recipe for *${name}*
 #end if
 
 $getVar('description', '')
 
 The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/${user}/public-conan/${name}%3A${user}).
 
-\#\# For Users: Use this package
+
+\#\# Issues
+
+If you wish to report an issue or make a request for a Bincrafters package, please do so here:
+
+[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
+
+
+\#\# For Users
 
 \#\#\# Basic setup
 
@@ -46,15 +54,12 @@ Complete the installation of requirements for your project running:
 
 Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git.
 
-\#\# For Packagers: Publish this Package
-
-The example below shows the commands used to publish to ${user} conan repository. To publish to your own conan respository (for example, after forking this git repository), you will need to change the commands below accordingly.
 
 \#\# Build and package
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
 
-    $ conan create ${user}/${channel}
+    $ conan create . ${user}/${channel}
 
 
 #if $options
@@ -70,13 +75,10 @@ The following command both runs all the steps of the conan file, and publishes t
 #end for
 #end if
 
+
 \#\# Add Remote
 
     $ conan remote add ${user} "https://api.bintray.com/conan/${user}/public-conan"
-
-\#\# Upload
-
-    $ conan upload ${name}/${version}@${user}/${channel} --all -r ${user}
 
 
 #if $recipe_license

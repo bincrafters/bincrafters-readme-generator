@@ -23,7 +23,7 @@ def run():
     readme_templater.prepare()
 
     readme_templater.run(template=arguments.readme_template)
-    if readme_templater.recipe_license != 'unknown':
+    if readme_templater.recipe_license["existing"] != True:
         readme_templater.run(template=arguments.license_template, output='LICENSE.md')
 
 

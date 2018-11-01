@@ -1,12 +1,20 @@
 [![Download](https://api.bintray.com/packages/foobar/public-conan/Hello%3Afoobar/images/download.svg) ](https://bintray.com/foobar/public-conan/Hello%3Afoobar/_latestVersion)
 
-[Conan.io](https://conan.io) package recipe for *Hello*.
+## Conan package recipe for *Hello*
 
 <Description of Hello here>
 
 The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/foobar/public-conan/Hello%3Afoobar).
 
-## For Users: Use this package
+
+## Issues
+
+If you wish to report an issue or make a request for a Bincrafters package, please do so here:
+
+[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
+
+
+## For Users
 
 ### Basic setup
 
@@ -28,15 +36,12 @@ Complete the installation of requirements for your project running:
 
 Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git.
 
-## For Packagers: Publish this Package
-
-The example below shows the commands used to publish to foobar conan repository. To publish to your own conan respository (for example, after forking this git repository), you will need to change the commands below accordingly.
 
 ## Build and package
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
 
-    $ conan create foobar/testing
+    $ conan create . foobar/testing
 
 
 ### Available Options
@@ -45,13 +50,10 @@ The following command both runs all the steps of the conan file, and publishes t
 | shared      | False |  [True, False] |
 | foobar      | False |  [True, False] |
 
+
 ## Add Remote
 
     $ conan remote add foobar "https://api.bintray.com/conan/foobar/public-conan"
-
-## Upload
-
-    $ conan upload Hello/0.1.0@foobar/testing --all -r foobar
 
 
 ## Conan Recipe License
@@ -59,4 +61,4 @@ The following command both runs all the steps of the conan file, and publishes t
 NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package Hello.
 It does *not* in any way apply or is related to the actual software being packaged.
 
-[MIT](git@github.com:bincrafters/conan-readme-generator.git/blob/master/LICENSE.md)
+[MIT](git@github.com:bincrafters/conan-readme-generator/blob/testing/0.1.0/LICENSE.md)

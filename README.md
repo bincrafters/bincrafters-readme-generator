@@ -9,9 +9,9 @@ Before using this Python script, you need to:
 1. Install the script and all its dependencies. There are two ways:
 
        a) pip install git+https://github.com/bincrafters/conan-readme-generator --upgrade
-       
+
         or
-       
+
        b) git clone https://github.com/bincrafters/conan-readme-generator
           cd conan-readme-generator
           pip install . --upgrade
@@ -24,7 +24,7 @@ Before using this Python script, you need to:
 
 2. Execute this script:
 
-        conan-readme-generator "bincraters/channel"
+        conan-readme-generator "bincrafters/channel"
 
 
 A README.md will be generated in the `conan-libname` directory.

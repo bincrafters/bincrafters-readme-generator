@@ -24,6 +24,8 @@ class GeneratorTest(unittest.TestCase):
             readme_templater = BincraftersTemplater()
             readme_templater.user = "foobar"
             readme_templater.channel = "testing"
+            readme_templater.conan_repository = "public-conan"
+            readme_templater.issue_tracker = "https://github.com/bincrafters/community/issues"
             readme_templater.prepare()
             readme_templater.run(template=os.path.join("..", "templates", "readme", "README-library.md.tmpl"),
                                  output=os.path.join(temp_dir, "README.md"))

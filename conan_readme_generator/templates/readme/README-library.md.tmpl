@@ -1,10 +1,10 @@
 #import os
-[![Download](https://api.bintray.com/packages/${user}/public-conan/${name}%3A${user}/images/download.svg) ](https://bintray.com/${user}/public-conan/${name}%3A${user}/_latestVersion)
+[![Download](https://api.bintray.com/packages/${user}/${conan_repository}/${name}%3A${user}/images/download.svg) ](https://bintray.com/${user}/${conan_repository}/${name}%3A${user}/_latestVersion)
 #if os.path.exists(".travis.yml")
 [![Build Status Travis](https://travis-ci.com/${user}/conan-${name}.svg?branch=${channel}%2F${version})](https://travis-ci.com/${user}/conan-${name})
 #end if
 #if os.path.exists("azure-pipelines.yml")
-[![Build Status Azure](https://dev.azure.com/bincrafters/packages/_apis/build/status/bincrafters.conan-qt?branchName=${channel}%2F${version})](https://dev.azure.com/${user}/packages/_build)
+[![Build Status Azure](https://dev.azure.com/${user}/packages/_apis/build/status/${user}.conan-${name}?branchName=${channel}%2F${version})](https://dev.azure.com/${user}/packages/_build)
 #end if
 #if os.path.exists("appveyor.yml")
 [![Build Status AppVeyor](https://ci.appveyor.com/api/projects/status/github/${user}/conan-${name}?branch=${channel}%2F${version}&svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
@@ -18,14 +18,14 @@
 
 $getVar('description', '')
 
-The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/${user}/public-conan/${name}%3A${user}).
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/${user}/${conan_repository}/${name}%3A${user}).
 
 
 \#\# Issues
 
-If you wish to report an issue or make a request for a Bincrafters package, please do so here:
+If you wish to report an issue or make a request for a package, please do so here:
 
-[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
+[Issues Tracker](${issue_tracker})
 
 
 \#\# For Users
@@ -78,7 +78,7 @@ The following command both runs all the steps of the conan file, and publishes t
 
 \#\# Add Remote
 
-    $ conan remote add ${user} "https://api.bintray.com/conan/${user}/public-conan"
+    $ conan remote add ${user} "https://api.bintray.com/conan/${user}/${conan_repository}"
 
 
 #if $recipe_license

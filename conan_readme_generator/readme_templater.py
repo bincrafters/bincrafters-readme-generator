@@ -152,6 +152,8 @@ class BincraftersTemplater(object):
                           'version': self.getConanfileVar('version'),
                           'user': self.getConanfileVar('user', self.user),
                           'channel': self.getConanfileVar('channel', self.channel),
+                          'conan_repository': self.conan_repository,
+                          'issue_tracker': self.issue_tracker,
                           'generators': self.getConanfileVar('generators'),
                           'license': self.getConanfileVar('license'),
                           'recipe_license': self.recipe_license,

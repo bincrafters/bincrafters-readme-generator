@@ -9,9 +9,9 @@ The packages generated with this **conanfile** can be found on [Bintray](https:/
 
 ## Issues
 
-If you wish to report an issue or make a request for a Bincrafters package, please do so here:
+If you wish to report an issue or make a request for a package, please do so here:
 
-[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
+[Issue Tracker](https://github.com/bincrafters/community/issues)
 
 
 ## For Users

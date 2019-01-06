@@ -5,6 +5,7 @@ import argparse
 import re
 import os
 
+
 class ArgumentsParser(object):
 
     _REFERENCE_PATTERN = r"(\w+)\/(\w+)"
@@ -32,12 +33,26 @@ class ArgumentsParser(object):
                             default=os.path.join(pathdir, 'templates', 'license', 'LICENSE-mit.md.tmpl'),
                             help="LICENSE.md template file path (default: LICENSE-mit.md.tmpl)")
 
+        parser.add_argument('-cr', '--conan-repository',
+                            nargs='?',
+                            type=str,
+                            default='public-conan',
+                            help='Name of the Conan repository on Bintray')
+
+        parser.add_argument('-it', '--issue-tracker',
+                            nargs='?',
+                            type=str,
+                            default='https://github.com/bincrafters/community/issues',
+                            help='URL of the issue tracker')
+
         parser.add_argument('-d', '--debug', action='store_true', help='Switch on debug mode.')
 
         arguments = parser.parse_args()
         self._username, self._channel = re.match(ArgumentsParser._REFERENCE_PATTERN, arguments.reference).groups()
         self._readme_template = arguments.readme_template
         self._license_template = arguments.license_template
+        self._conan_repository = arguments.conan_repository
+        self._issue_tracker = arguments.issue_tracker
         self._debug = arguments.debug
 
     def _reference_type(self, string):
@@ -65,6 +80,14 @@ class ArgumentsParser(object):
     @property
     def license_template(self):
         return self._license_template
+
+    @property
+    def conan_repository(self):
+        return self._conan_repository
+
+    @property
+    def issue_tracker(self):
+        return self._issue_tracker
 
     @property
     def debug(self):

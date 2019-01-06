@@ -20,6 +20,8 @@ def run():
 
     readme_templater.user = arguments.username
     readme_templater.channel = arguments.channel
+    readme_templater.conan_repository = arguments.conan_repository
+    readme_templater.issue_tracker = arguments.issue_tracker
     readme_templater.prepare()
 
     readme_templater.run(template=arguments.readme_template)

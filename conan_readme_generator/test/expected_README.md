@@ -11,7 +11,7 @@ The packages generated with this **conanfile** can be found on [Bintray](https:/
 
 If you wish to report an issue or make a request for a package, please do so here:
 
-[Issue Tracker](https://github.com/bincrafters/community/issues)
+[Issues Tracker](https://github.com/bincrafters/community/issues)
 
 
 ## For Users

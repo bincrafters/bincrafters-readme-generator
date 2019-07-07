@@ -28,6 +28,7 @@ class Version():
             version = re.search("__version__ = '([0-9a-z.-]+)'", conan_init).group(1)
             return version
 
+
 class Requirements(object):
     '''Get project requirements'''
 
@@ -43,6 +44,7 @@ class Requirements(object):
                 if not line.strip().startswith("#"):
                     requirements.append(line)
         return requirements
+
 
 class PackageFile(object):
     '''Get configuration file list '''

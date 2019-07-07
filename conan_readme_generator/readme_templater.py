@@ -93,7 +93,7 @@ class BincraftersTemplater(object):
             except Exception as e:
                 logging.debug(e)
             else:
-                #print("%s => %s" % (variable, type(attr)) )
+                # print("%s => %s" % (variable, type(attr)) )
                 # tackles multiple or single generators definition in conanfile
                 if variable == "generators":
                     if isinstance(attr, (list, tuple)):
@@ -108,7 +108,7 @@ class BincraftersTemplater(object):
                 elif isinstance(attr, str):
                     return attr
                 elif isinstance(attr, collections.Sequence):
-                    #print("var: " + variable)
+                    # print("var: " + variable)
                     return attr.split()
         else:
             return default_value
@@ -167,8 +167,8 @@ class BincraftersTemplater(object):
                 print("Recipe does not have: '%s'.\nCannot produce %s" % (option, output))
                 return
 
-    def run(self, template='README.md.tmpl', output='README.md'):
-        print("Generating %s using template %s" % (output,template))
+    def run(self, template='version-independent.md.tmpl', output='README.md'):
+        print("Generating %s using template %s" % (output, template))
 
         try:
             with open(template) as f:

@@ -26,7 +26,7 @@ def test_generator():
         readme_templater.conan_repository = "public-conan"
         readme_templater.issue_tracker = "https://github.com/bincrafters/community/issues"
         readme_templater.prepare()
-        readme_templater.run(template=os.path.join("..", "templates", "readme", "README-library.md.tmpl"),
+        readme_templater.run(template=os.path.join("..", "templates", "readme", "version-specific.md.tmpl"),
                                 output=os.path.join(temp_dir, "README.md"))
         print("PATH: %s" % os.path.join(temp_dir, "README.md"))
 

@@ -4,7 +4,7 @@
 
 <Description of Hello here>
 
-The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/foobar/public-conan/Hello%3Afoobar).
+The packages generated from this recipe can be found on [Bintray](https://bintray.com/foobar/public-conan/Hello%3Afoobar).
 
 
 ## Issues

@@ -1,0 +1,57 @@
+#import os
+[![Download](https://api.bintray.com/packages/${user}/${conan_repository}/${name}%3A${user}/images/download.svg)](https://bintray.com/${user}/${conan_repository}/${name}%3A${user}/_latestVersion)
+#if os.path.exists(".travis.yml")
+[![Build Status Travis](https://travis-ci.com/${user}/conan-${name}.svg)](https://travis-ci.com/${user}/conan-${name})
+#end if
+#if os.path.exists("azure-pipelines.yml")
+[![Build Status Azure](https://dev.azure.com/${user}/packages/_apis/build/status/${user}.conan-${name})](https://dev.azure.com/${user}/packages/_build)
+#end if
+#if os.path.exists("appveyor.yml")
+[![Build Status AppVeyor](https://ci.appveyor.com/api/projects/status/github/${user}/conan-${name}?svg=true)](https://ci.appveyor.com/project/${user}/conan-${name})
+#end if
+
+#if $homepage
+\#\# Conan package recipe for [*${name}*]($getVar('homepage', ''))
+#else
+\#\# Conan package recipe for *${name}*
+#end if
+
+$getVar('description', '')
+
+The packages generated from this recipe can be found on [Bintray](https://bintray.com/${user}/${conan_repository}/${name}%3A${user}).
+
+
+\#\# Issues
+
+If you wish to report an issue or make a request for a package, please do so here:
+
+[Issues Tracker](${issue_tracker})
+
+
+#if $options
+\#\#\# Available Package Options
+| Option        | Default | Possible Values  |
+| ------------- |:----------------- |:------------:|
+#for $key, $value in $options.items()
+#if $key not in $default_options
+| ${key}      |                        |  ${value} |
+#else
+| ${key}      | $default_options[$key] |  ${value} |
+#end if
+#end for
+#end if
+
+
+\#\# Add Remote
+
+    $ conan remote add ${user} "https://api.bintray.com/conan/${user}/${conan_repository}"
+
+
+#if $recipe_license
+\#\# Conan Recipe License
+
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package ${name}.
+It does *not* in any way apply or is related to the actual software being packaged.
+
+[$recipe_license['license']]($recipe_license['url'])
+#end if

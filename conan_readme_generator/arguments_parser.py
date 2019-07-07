@@ -12,7 +12,7 @@ class ArgumentsParser(object):
     def __init__(self):
         path = os.path.abspath(__file__)
         pathdir = os.path.dirname(path)
-        parser = argparse.ArgumentParser(description="A simple script to generate a README.md for conan recipes.")
+        parser = argparse.ArgumentParser(description="A simple script to generate a README.md for Conan recipes.")
 
         parser.add_argument("reference",
                             nargs='?',
@@ -20,13 +20,13 @@ class ArgumentsParser(object):
                             default="bincrafters/stable",
                             help='Reference to user and channel (default: "bincrafters/stable")')
 
-        parser.add_argument("readme_template",
+        parser.add_argument('-t', '--template',
                             nargs='?',
                             type=self._path_type,
-                            default=os.path.join(pathdir, 'templates', 'readme', 'README-library.md.tmpl'),
-                            help="README.md template file path (default: README-library.md.tmpl)")
+                            default=os.path.join(pathdir, 'templates', 'readme', 'version-independent.md.tmpl'),
+                            help="README.md template file path (default: version-independent.md.tmpl)")
 
-        parser.add_argument("license_template",
+        parser.add_argument('-l', '--license-template',
                             nargs='?',
                             type=self._path_type,
                             default=os.path.join(pathdir, 'templates', 'license', 'LICENSE-mit.md.tmpl'),
@@ -48,7 +48,7 @@ class ArgumentsParser(object):
 
         arguments = parser.parse_args()
         self._username, self._channel = re.match(ArgumentsParser._REFERENCE_PATTERN, arguments.reference).groups()
-        self._readme_template = arguments.readme_template
+        self._readme_template = arguments.template
         self._license_template = arguments.license_template
         self._conan_repository = arguments.conan_repository
         self._issue_tracker = arguments.issue_tracker

@@ -30,4 +30,4 @@ def test_generator():
                                 output=os.path.join(temp_dir, "README.md"))
         print("PATH: %s" % os.path.join(temp_dir, "README.md"))
 
-        assert filecmp.cmp("expected_README.md", os.path.join(temp_dir, "README.md"))
+        assert filecmp.cmp(os.path.join("file", "expected_README.md"), os.path.join(temp_dir, "README.md"))

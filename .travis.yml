@@ -19,4 +19,4 @@ before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - export PATH=$PATH:/usr/local/Cellar/numpy/1.14.5/libexec/nose/bin
 script:
-  - nosetests .
+  - pytest -v --cov-config=.coveragerc --cov=conan_readme_generator conan_readme_generator/test/

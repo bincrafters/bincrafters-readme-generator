@@ -43,4 +43,6 @@ conanbuildinfo.*
 CMakeFiles
 CMakeCache.txt
 cmake_install.cmakes
-Makefile
+Makefilevenv/
+
+venv/

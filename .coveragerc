@@ -1,0 +1,5 @@
+[run]
+omit = conan_readme_generator/test/*
+
+[tool:pytest]
+addopts = --cov=conan_readme_generator --cov-report html

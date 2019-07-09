@@ -14,7 +14,7 @@ If you wish to report an issue or make a request for a package, please do so her
 [Issues Tracker](https://github.com/bincrafters/community/issues)
 
 
-### Available Options
+### Available Package Options
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
 | shared      | False |  [True, False] |

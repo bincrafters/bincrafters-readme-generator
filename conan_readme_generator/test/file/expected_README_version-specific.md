@@ -44,7 +44,7 @@ The following command both runs all the steps of the conan file, and publishes t
     $ conan create . foobar/testing
 
 
-### Available Options
+### Available Package Options
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
 | shared      | False |  [True, False] |

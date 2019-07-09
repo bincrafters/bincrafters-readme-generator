@@ -1,4 +1,4 @@
-[![Download](https://api.bintray.com/packages/foobar/public-conan/Hello%3Afoobar/images/download.svg) ](https://bintray.com/foobar/public-conan/Hello%3Afoobar/_latestVersion)
+[![Download](https://api.bintray.com/packages/foobar/public-conan/Hello%3Afoobar/images/download.svg)](https://bintray.com/foobar/public-conan/Hello%3Afoobar/_latestVersion)
 
 ## Conan package recipe for *Hello*
 

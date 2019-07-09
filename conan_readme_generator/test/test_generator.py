@@ -5,11 +5,21 @@ import filecmp
 import subprocess
 import shutil
 
+
+import pytest
 from conans import tools
 from conan_readme_generator.readme_templater import BincraftersTemplater
 
+testdata = [
+    "version-independent",
+    "version-specific"
+]
 
-def test_generator():
+
+@pytest.mark.parametrize("readme", testdata)
+def test_readme(readme):
+    readme_tmpl = readme + ".md.tmpl"
+    readme_expected = "expected_README_" + readme + ".md"
     temp_dir = tempfile.mkdtemp()
     with tools.chdir(os.path.join("conan_readme_generator", "test")):
 
@@ -26,8 +36,8 @@ def test_generator():
         readme_templater.conan_repository = "public-conan"
         readme_templater.issue_tracker = "https://github.com/bincrafters/community/issues"
         readme_templater.prepare()
-        readme_templater.run(template=os.path.join("..", "templates", "readme", "version-specific.md.tmpl"),
+        readme_templater.run(template=os.path.join("..", "templates", "readme", readme_tmpl),
                                 output=os.path.join(temp_dir, "README.md"))
         print("PATH: %s" % os.path.join(temp_dir, "README.md"))
 
-        assert filecmp.cmp(os.path.join("file", "expected_README.md"), os.path.join(temp_dir, "README.md"))
+        assert filecmp.cmp(os.path.join("file", readme_expected), os.path.join(temp_dir, "README.md"))
